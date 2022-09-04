@@ -1,0 +1,77 @@
+<template>
+  <form class="add-form" @submit="onSubmit">
+    <div class="form-group">
+      <label>Task</label>
+      <input
+        class="form-control"
+        type="text"
+        name="text"
+        placeholder="Add Task"
+        v-model="text"
+      />
+    </div>
+    <div class="form-group">
+      <label>Day & Time</label>
+      <input
+        class="form-control"
+        type="text"
+        name="day"
+        placeholder="Add Day & Time"
+        v-model="day"
+      />
+    </div>
+    <div class="form-group d-flex justify-content-center">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        id="reminder"
+        name="reminder"
+        v-model="reminder"
+      />
+      <label class="form-check-label ms-2" for="reminder">Set Reminder</label>
+    </div>
+    <div class="m-2 mb-4 d-flex justify-content-center">
+      <input type="submit" value="Save Task" class="btn btn-dark px-5" />
+    </div>
+  </form>
+</template>
+
+<script>
+export default {
+  name: "AddTask",
+  data() {
+    return {
+      text: "",
+      day: "",
+      reminder: false,
+    };
+  },
+  methods: {
+    onSubmit(e) {
+      e.preventDefault();
+      if (!this.text) {
+        alert("Please add a task");
+        return;
+      }
+
+      const newTask = {
+        // id: Math.floor(Math.random() * 10000),
+        text: this.text,
+        day: this.day,
+        reminder: this.reminder,
+      };
+      this.$emit("add-task", newTask);
+
+      this.text = "";
+      this.day = "";
+      this.reminder = false;
+    },
+  },
+};
+</script>
+
+<style scoped>
+.form-group {
+  margin: 0px 20px 20px 20px;
+}
+</style>

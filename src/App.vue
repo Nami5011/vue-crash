@@ -1,26 +1,59 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <dir class="d-flex justify-content-center base">
+    <div class="card m-3 px-3 py-4">
+      <AppHeader
+        title="Task Tracker"
+        @btn-click="toggleAddTask"
+        :showAddTask="showAddTask"
+      />
+      <router-view :showAddTask="showAddTask"></router-view>
+      <AppFooter />
+    </div>
+  </dir>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import AppHeader from "./components/Header";
+import AppFooter from "./components/Footer";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    AppHeader,
+    AppFooter,
+  },
+  data() {
+    return {
+      showAddTask: false,
+    };
+  },
+  methods: {
+    // フォーム表示切り替え
+    toggleAddTask() {
+      this.showAddTask = !this.showAddTask;
+    },
+  },
+};
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+@import url("https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css");
+
+.base {
+  margin: 0px;
+  padding: 0px;
+}
+.card {
+  width: 550px;
+  min-width: 250px;
+}
+@media (max-width: 575.98px) {
+  .base {
+    min-width: 250px;
+  }
+  .card {
+    min-width: 250px;
+    width: 90%;
+  }
 }
 </style>
