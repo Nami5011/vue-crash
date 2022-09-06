@@ -6,12 +6,13 @@ module.exports={
 	devServer:{
 		proxy:{
 			'^/api': {
-				target: 'http://localhost:5000/',
+				// target: 'http://localhost:5000/',
+				target: 'https://my-json-server.typicode.com/Nami5011/Nami5011.github.io/',
 				changeOrigin: true,
 				logLevel: 'debug',
 				pathRewrite: { '^/api' : '/' }
 			}
 		}
-	}
-	
+	},
+	publicPath: process.env.NODE_ENV === "production" ? "/sample2/" : "/",	
 }
