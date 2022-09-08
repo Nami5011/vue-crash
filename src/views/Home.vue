@@ -10,6 +10,7 @@
 <script>
 import TaskListComponent from "../components/Tasks";
 import AddTask from "../components/AddTask";
+import UrlPath from "../constants/urlPath";
 
 export default {
   name: "Home",
@@ -29,7 +30,7 @@ export default {
     // タスク削除
     async deleteTask(id) {
       if (confirm("Are you sure?")) {
-        const res = await fetch(`api/tasks/${id}`, {
+        const res = await fetch(UrlPath.API + `/tasks/${id}`, {
           method: "DELETE",
         });
         res.status === 200
@@ -42,7 +43,7 @@ export default {
       // db update
       const tastToToggle = await this.fetchTask(id);
       const updTask = updateReminder(tastToToggle);
-      const res = await fetch(`api/tasks/${id}`, {
+      const res = await fetch(UrlPath.API + `/tasks/${id}`, {
         method: "PUT",
         headers: {
           "Content-type": "application/json",
@@ -60,7 +61,7 @@ export default {
     },
     // タスク追加
     async addTask(task) {
-      const res = await fetch("api/tasks", {
+      const res = await fetch(UrlPath.API + "/tasks", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -73,12 +74,12 @@ export default {
       this.tasks = [...this.tasks, data];
     },
     async fetchTasks() {
-      const res = await fetch("api/tasks");
+      const res = await fetch(UrlPath.API + "/tasks");
       const data = await res.json();
       return data;
     },
     async fetchTask(id) {
-      const res = await fetch(`api/tasks/${id}`);
+      const res = await fetch(UrlPath.API + `/tasks/${id}`);
       const data = await res.json();
       return data;
     },
