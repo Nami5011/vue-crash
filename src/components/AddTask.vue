@@ -12,13 +12,14 @@
     </div>
     <div class="form-group">
       <label>Day & Time</label>
-      <input
+      <!-- <input
         class="form-control"
         type="text"
         name="day"
         placeholder="Add Day & Time"
         v-model="day"
-      />
+      /> -->
+      <Datepicker v-model="day" :format="format"></Datepicker>
     </div>
     <div class="form-group d-flex justify-content-center">
       <input
@@ -37,13 +38,36 @@
 </template>
 
 <script>
+import Datepicker from "@vuepic/vue-datepicker";
+import "@vuepic/vue-datepicker/dist/main.css";
+import { ref } from "vue";
+
 export default {
   name: "AddTask",
+  components: { Datepicker },
   data() {
     return {
       text: "",
       day: "",
       reminder: false,
+    };
+  },
+  setup() {
+    const date = ref(new Date());
+    // In case of a range picker, you'll receive [Date, Date]
+    const format = (date) => {
+      const day = date.getDate();
+      const month = date.getMonth() + 1;
+      const year = date.getFullYear();
+      const HH = date.getHours();
+      const mm = date.getMinutes();
+
+      return `${day}/${month}/${year} ${HH}:${mm}`;
+    };
+
+    return {
+      date,
+      format,
     };
   },
   methods: {
@@ -57,7 +81,7 @@ export default {
       const newTask = {
         // id: Math.floor(Math.random() * 10000),
         text: this.text,
-        day: this.day,
+        day: this.format(this.day),
         reminder: this.reminder,
       };
       this.$emit("add-task", newTask);
