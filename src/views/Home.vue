@@ -1,5 +1,20 @@
 <template>
-  <AddTask v-show="showAddTask" @add-task="addTask" />
+  <!-- <AddTask v-show="showAddTask" @add-task="addTask" /> -->
+
+  <!-- <button id="show-modal" @click="showModal = true">Show Modal</button> -->
+  <Teleport to="body">
+    <!-- use the modal component, pass in the prop -->
+    <AddTaskModal
+      :show="showAddTask"
+      @add-task="addTask"
+      @close="$emit('btn-click-modal')"
+    >
+      <!-- <template #header>
+        <h3>custom header</h3>
+      </template> -->
+    </AddTaskModal>
+  </Teleport>
+
   <TaskListComponent
     :tasks="tasks"
     @delete-task="deleteTask"
@@ -9,8 +24,10 @@
 
 <script>
 import TaskListComponent from "../components/Tasks";
-import AddTask from "../components/AddTask";
+// import AddTask from "../components/AddTask";
 import UrlPath from "../constants/urlPath";
+
+import AddTaskModal from "../components/AddTaskModal";
 
 export default {
   name: "Home",
@@ -19,11 +36,14 @@ export default {
   },
   components: {
     TaskListComponent,
-    AddTask,
+    // AddTask,
+    AddTaskModal,
   },
+  emits: ["btn-click-modal"],
   data() {
     return {
       tasks: [],
+      showModal: false,
     };
   },
   methods: {

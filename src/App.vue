@@ -1,15 +1,24 @@
 <template>
-  <dir class="d-flex justify-content-center base">
+  <div class="d-flex justify-content-center base">
     <div class="card m-3 px-3 py-4">
-      <AppHeader
+      <!-- <AppHeader
         title="Task Tracker"
         @btn-click="toggleAddTask"
+        @btn-click-modal="toggleAddTask"
+        :showAddTask="showAddTask"
+      /> -->
+      <AppHeader
+        title="Task Tracker"
+        @btn-click-modal="toggleAddTask"
         :showAddTask="showAddTask"
       />
-      <router-view :showAddTask="showAddTask"></router-view>
+      <router-view
+        :showAddTask="showAddTask"
+        @btn-click-modal="toggleAddTask"
+      ></router-view>
       <AppFooter />
     </div>
-  </dir>
+  </div>
 </template>
 
 <script>
