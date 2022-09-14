@@ -1,17 +1,21 @@
 <template>
   <header>
     <h1>{{ title }}</h1>
-    <TaskButton
+    <!-- <TaskButton
       v-show="homePage"
       @btn-click="$emit('btn-click')"
       :text="showAddTask ? 'Close' : 'Add Task'"
       :color="showAddTask ? 'btn-danger' : 'btn-success'"
-    />
+    /> -->
+    <button class="btn btn-success" @click="$emit('btn-click-modal')">
+      Add Task modal
+    </button>
   </header>
 </template>
 
 <script>
-import TaskButton from "./Button";
+// import TaskButton from "./Button";
+
 export default {
   name: "app-header",
   props: {
@@ -19,13 +23,14 @@ export default {
     showAddTask: Boolean,
   },
   components: {
-    TaskButton,
+    // TaskButton,
   },
   computed: {
     homePage() {
       return this.$route.path === "/";
     },
   },
+  emits: ["btn-click-modal"],
 };
 </script>
 
